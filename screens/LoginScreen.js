@@ -183,7 +183,7 @@ const LoginScreen = () => {
                 */}
 
                   <BreakPaddingTop doubleGap={true} />
-                  <BreakPaddingTop />
+                  <BreakPaddingTop doubleGap={true} />
                   <Line />
                   <ExtraView>
                     <ExtraText>Don't have an account yet? </ExtraText>
