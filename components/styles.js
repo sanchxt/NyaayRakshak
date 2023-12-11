@@ -21,6 +21,7 @@ export const StyledContainer = styled.View`
   padding: 25px;
   padding-top: ${StatusBarHeight + 10}px;
   background-color: ${primary};
+  margin-top: 40px;
 `;
 
 export const InnerContainer = styled.View`
@@ -180,6 +181,13 @@ export const Line = styled.View`
   width: 100%;
   background-color: #000000;
   margin-vertical: 10px;
+
+  ${(props) =>
+    props.drawer &&
+    `
+    background-color: #111;
+    height: 0.3px;
+  `}
 `;
 
 export const ExtraView = styled.View`
