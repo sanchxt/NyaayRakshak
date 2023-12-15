@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
 
 import RightToInformation from "./ExpandableContents/RightToInformation";
 import RightToEquality from "./ExpandableContents/RightToEquality";
@@ -70,16 +70,7 @@ const HomeYourRightsScreen = () => {
     <View>
       {/* container 1 - right to info */}
       <TouchableWithoutFeedback onPress={() => handleContainerPress("Info")}>
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Information
           </Text>
@@ -92,16 +83,7 @@ const HomeYourRightsScreen = () => {
       <TouchableWithoutFeedback
         onPress={() => handleContainerPress("Equality")}
       >
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Equality
           </Text>
@@ -114,16 +96,7 @@ const HomeYourRightsScreen = () => {
       <TouchableWithoutFeedback
         onPress={() => handleContainerPress("Education")}
       >
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Education
           </Text>
@@ -134,16 +107,7 @@ const HomeYourRightsScreen = () => {
 
       {/* container 4 - life */}
       <TouchableWithoutFeedback onPress={() => handleContainerPress("Life")}>
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Life
           </Text>
@@ -154,16 +118,7 @@ const HomeYourRightsScreen = () => {
 
       {/* container 5 - FIR */}
       <TouchableWithoutFeedback onPress={() => handleContainerPress("FIR")}>
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to File an FIR
           </Text>
@@ -174,16 +129,7 @@ const HomeYourRightsScreen = () => {
 
       {/* Container 6 - refund */}
       <TouchableWithoutFeedback onPress={() => handleContainerPress("Refund")}>
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Claim a Refund
           </Text>
@@ -196,16 +142,7 @@ const HomeYourRightsScreen = () => {
       <TouchableWithoutFeedback
         onPress={() => handleContainerPress("EqualPay")}
       >
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Equal Pay
           </Text>
@@ -218,16 +155,7 @@ const HomeYourRightsScreen = () => {
       <TouchableWithoutFeedback
         onPress={() => handleContainerPress("FreeLegalAid")}
       >
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right to Free Legal Aid
           </Text>
@@ -240,16 +168,7 @@ const HomeYourRightsScreen = () => {
       <TouchableWithoutFeedback
         onPress={() => handleContainerPress("MaternityAct")}
       >
-        <View
-          style={{
-            marginTop: 15,
-            padding: 15,
-            paddingLeft: 25,
-            paddingRight: 25,
-            backgroundColor: "#2E5894",
-            borderRadius: 25,
-          }}
-        >
+        <View style={styles.container}>
           <Text style={{ fontSize: 20, color: "#FFFAF0", fontWeight: 800 }}>
             Right Under Maternity Act
           </Text>
@@ -260,5 +179,16 @@ const HomeYourRightsScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 15,
+    padding: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    backgroundColor: "#2E3894",
+    borderRadius: 25,
+  },
+});
 
 export default HomeYourRightsScreen;
