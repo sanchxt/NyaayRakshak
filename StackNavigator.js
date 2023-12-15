@@ -27,6 +27,7 @@ import CategoriesDrawer from "./screens/drawers/CategoriesDrawer";
 import CustomizeDrawer from "./screens/drawers/CustomizeDrawer";
 import SettingsDrawer from "./screens/drawers/SettingsDrawer";
 import GetPremiumDrawer from "./screens/drawers/GetPremiumDrawer";
+import AIChatDrawer from "./screens/drawers/AIChatDrawer";
 
 import HealthScreen from "./screens/CategoryScreens/HealthScreen";
 import EducationScreen from "./screens/CategoryScreens/EducationScreen";
@@ -155,6 +156,17 @@ const HomeNavigator = () => (
             size={20}
             color="#808080"
           />
+        ),
+      }}
+    />
+    <Drawer.Screen
+      name="AIChatDrawer"
+      component={AIChatDrawer}
+      options={{
+        drawerLabel: "Chat with AI",
+        title: "Chat with AI",
+        drawerIcon: () => (
+          <MaterialCommunityIcons name="chat-plus" size={20} color="#808080" />
         ),
       }}
     />
