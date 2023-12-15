@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
+import axios from "axios";
 
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 
@@ -57,6 +58,36 @@ const SignupScreen = () => {
     setShow(true);
   };
 
+  const handleSignUp = async (values, setSubmitting) => {
+    try {
+      // Make sure password and confirmPassword match
+      if (values.password !== values.confirmPassword) {
+        console.log("Passwords do not match");
+        return;
+      }
+
+      const response = await axios.post("http://localhost:5555/signup", {
+        name: values.fullName,
+        email: values.email,
+        dateOfBirth: dob,
+        password: values.password,
+        role: "prisoner", // or "lawyer" based on your logic
+        // Additional fields can be added here if needed
+      });
+
+      if (response.data.success) {
+        console.log("Registration successful");
+        navigation.navigate("Welcome");
+      } else {
+        console.log("Registration failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -83,21 +114,9 @@ const SignupScreen = () => {
               password: "",
               confirmPassword: "",
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
-              if (
-                values.email &&
-                values.password &&
-                values.fullName &&
-                values.confirmPassword
-              ) {
-                navigation.navigate("Welcome");
-              } else {
-                console.log("error: one or more fields are empty");
-              }
-
-              setSubmitting(false);
-            }}
+            onSubmit={(values, { setSubmitting }) =>
+              handleSignUp(values, setSubmitting)
+            }
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => {
               return (

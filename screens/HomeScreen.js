@@ -48,25 +48,36 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <ImageBackground
-        source={require("../assets/img/background.png")}
-        style={{ flex: 1 }}
-      >
+    <ImageBackground
+      source={require("../assets/img/background.png")}
+      style={{ flex: 1 }}
+    >
+      <ScrollView style={{ flex: 1 }}>
         <StyledContainer>
           <LineBreak />
           <PageTitleContainer>
-            <Animated.Text style={titleStyle}>
-              <PageTitle>{timeOfDay}</PageTitle>
-            </Animated.Text>
+            {/* menu and bell buttons */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginHorizontal: 10,
+              }}
+            >
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <MaterialIcons name="menu" size={30} color="black" />
+              </TouchableOpacity>
 
-            <View style={{ position: "absolute", right: 10, zIndex: 2 }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Notifications")}
               >
                 <Feather name="bell" size={30} color="black" />
               </TouchableOpacity>
             </View>
+
+            <Animated.Text style={titleStyle}>
+              <PageTitle>{timeOfDay}</PageTitle>
+            </Animated.Text>
 
             <Animated.Text style={titleStyle}>
               <SubTitle>Sanchit Bhalla</SubTitle>
@@ -139,8 +150,8 @@ const HomeScreen = () => {
         </StyledContainer>
 
         <LineBreak moreGap={true} />
-      </ImageBackground>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
