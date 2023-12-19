@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ImageBackground,
   ScrollView,
+  Image,
 } from "react-native";
 
 import HealthBooks from "../../HelperFunctions/ExpandableContents/HealthContents/HealthBooks";
@@ -106,7 +107,17 @@ const HomeYourRightsScreen = () => {
             </TouchableWithoutFeedback>
 
             {meditationSteps && <MeditationSteps />}
+
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Image
+                source={require("../../assets/img/mental-health.png")} // Replace with your image path
+                style={styles.yourImageStyle} // Define yourImageStyle in your StyleSheet
+              />
+            </View>
+
           </View>
+
+
         </StyledContainer>
       </ScrollView>
     </ImageBackground>
@@ -122,119 +133,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#2E3894",
     borderRadius: 35,
   },
+  yourImageStyle: {
+    width: "60%", // Adjust width as needed
+    height: 250, // Adjust height as needed
+    resizeMode: "cover", // or 'contain', depending on your preference
+  },
 });
 
 export default HomeYourRightsScreen;
-
-// import React from "react";
-// import {
-//   View,
-//   ImageBackground,
-//   TouchableWithoutFeedback,
-//   ScrollView,
-// } from "react-native";
-
-// import {
-//   StyledContainer,
-//   HealthOptionContainer,
-//   LineBreak,
-//   CategoryTitle,
-// } from "../../components/HealthStyles";
-
-// const HomeScreen = () => {
-//   return (
-//     <ImageBackground
-//       source={require("../../assets/img/background.png")}
-//       style={{ flex: 1 }}
-//     >
-//       <ScrollView style={{ flex: 1 }}>
-//         <StyledContainer>
-//           <View
-//             style={{ flexDirection: "column", justifyContent: "space-between" }}
-//           >
-//             <TouchableWithoutFeedback>
-//               <HealthOptionContainer category={true}>
-//                 <CategoryTitle>hey</CategoryTitle>
-//               </HealthOptionContainer>
-//             </TouchableWithoutFeedback>
-
-//             <TouchableWithoutFeedback>
-//               <HealthOptionContainer category={true}>
-//                 <CategoryTitle>lol</CategoryTitle>
-//               </HealthOptionContainer>
-//             </TouchableWithoutFeedback>
-//           </View>
-//           {/* <View
-//             style={{
-//               flexDirection: "row",
-//               justifyContent: "space-between",
-//             }}
-//           >
-//             <TouchableWithoutFeedback>
-//               <HealthOptionContainer category={true}>
-//                 <LineBreak />
-//                 <MaterialIcons
-//                   name="healing"
-//                   size={20}
-//                   color="#b2ffff"
-//                   style={{ marginTop: -10, paddingBottom: 10 }}
-//                 />
-//                 <CategoryTitle>Health</CategoryTitle>
-//               </HealthOptionContainer>
-//             </TouchableWithoutFeedback>
-
-//             <TouchableWithoutFeedback>
-//               <HealthOptionContainer category={true}>
-//                 <LineBreak />
-//                 <MaterialCommunityIcons
-//                   name="book-education"
-//                   size={20}
-//                   color="#b2ffff"
-//                   style={{ marginTop: -10, paddingBottom: 10 }}
-//                 />
-//                 <CategoryTitle>Education</CategoryTitle>
-//               </HealthOptionContainer>
-//             </TouchableWithoutFeedback>
-//           </View>
-
-//           <View
-//             style={{
-//               flexDirection: "row",
-//               justifyContent: "space-between",
-//             }}
-//           >
-//             <TouchableWithoutFeedback>
-//               <HealthOptionContainer category={true}>
-//                 <LineBreak />
-//                 <Ionicons
-//                   name="document"
-//                   size={20}
-//                   color="#b2ffff"
-//                   style={{ marginTop: -10, paddingBottom: 10 }}
-//                 />
-//                 <CategoryTitle>Documents</CategoryTitle>
-//               </HealthOptionContainer>
-//             </TouchableWithoutFeedback>
-
-//             <TouchableWithoutFeedback>
-//               <HealthOptionContainer category={true}>
-//                 <LineBreak />
-//                 <MaterialIcons
-//                   name="feedback"
-//                   size={20}
-//                   color="#b2ffff"
-//                   style={{ marginTop: -10, paddingBottom: 10 }}
-//                 />
-//                 <CategoryTitle>Complaints</CategoryTitle>
-//               </HealthOptionContainer>
-//             </TouchableWithoutFeedback>
-//           </View> */}
-//         </StyledContainer>
-
-//         <LineBreak moreGap={true} />
-//       </ScrollView>
-//     </ImageBackground>
-//   );
-// };
-
-// export default HomeScreen;
