@@ -15,12 +15,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
-      required: true,
-    },
     dateOfBirth: {
       type: Date,
+    },
+    age: {
+      type: Number,
     },
     activeCase: {
       type: Boolean,
@@ -40,6 +39,7 @@ const userSchema = mongoose.Schema(
     },
     currentProfilePicture: {
       type: String,
+      default: "None",
     },
     role: {
       type: String,
@@ -54,11 +54,35 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    caseID: {
+      type: Number,
+      default: 0,
+    },
+    courtLevel: {
+      type: String,
+    }
   },
   {
     timestamps: true,
   }
 );
+
+userSchema.pre("save", function (next) {
+  if (this.dateOfBirth) {
+    const today = new Date();
+    const birthDate = new Date(this.dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    this.age = age;
+  }
+
+  next();
+});
 
 userSchema.pre("save", async function (next) {
   try {
