@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import axios from "axios";
+import { apiBaseUrl } from "../apiConfig";
+import * as SecureStore from 'expo-secure-store';
 
 import {
   InnerContainer,
@@ -17,10 +20,19 @@ import {
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
+  const [userName, setUserName] = useState('');
 
-  const handleLogout = () => {
-    navigation.navigate("Login");
-  };
+  useEffect(() => {
+    const loadUserDetails = async () => {
+      const userDetailsString = await SecureStore.getItemAsync('userDetails');
+      if (userDetailsString) {
+        const userDetails = JSON.parse(userDetailsString);
+        setUserName(userDetails.name); // Set the user's name
+      }
+    };
+
+    loadUserDetails();
+  }, []);
 
   return (
     <>
@@ -33,14 +45,13 @@ const WelcomeScreen = () => {
 
         <WelcomeContainer style={{ backgroundColor: "#ffffff" }}>
           <PageTitle welcome={true}>Welcome,</PageTitle>
-          <SubTitle welcome={true}>Sanchit Bhalla</SubTitle>
+          <SubTitle welcome={true}>{userName}</SubTitle>
 
           <StyledFormArea style={{ width: "90%" }}>
             <Avatar
               resizeMode="cover"
               source={require("./../assets/img/ProfileImage.jpg")}
             />
-
             <Line />
             <StyledButton
               onPress={() => {

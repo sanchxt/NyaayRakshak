@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 import {
   View,
   Text,
@@ -16,25 +17,20 @@ import {
   MaterialCommunityIcons,
   Ionicons,
 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import axios from "axios";
 
 import {
   StyledContainer,
   PageTitleContainer,
   PageTitle,
   SubTitle,
-  CaseProgContainer,
   LineBreak,
-  CaseHeading,
-  CaseProgDate,
-  DateContainer,
-  CaseProgJudge,
-  LegalHelpText,
-  CategoryTitle,
-  CategoryHeading,
 } from "./../components/homeStyles";
 import HomeOverviewScreen from "../HelperFunctions/HomeOverviewScreen";
 import HomeYourRightsScreen from "../HelperFunctions/HomeYourRightsScreen";
+
+import { apiBaseUrl } from "../apiConfig";
 
 const HomeScreen = () => {
   const timeOfDay = getCurrentTime();
@@ -42,10 +38,25 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const [activeTab, setActiveTab] = useState("Overview");
+  const [userName, setUserName] = useState('');
+  const [role, setRole] = useState();
 
   const handleTabPress = (tab) => {
     setActiveTab(tab);
   };
+
+  useEffect(() => {
+    const loadUserDetails = async () => {
+      const userDetailsString = await SecureStore.getItemAsync('userDetails');
+      if (userDetailsString) {
+        const userDetails = JSON.parse(userDetailsString);
+        console.log(userDetails);
+        setUserName(userDetails.name);
+      }
+    };
+
+    loadUserDetails();
+  }, []);
 
   return (
     <ImageBackground
@@ -80,7 +91,7 @@ const HomeScreen = () => {
             </Animated.Text>
 
             <Animated.Text style={titleStyle}>
-              <SubTitle>Sanchit Bhalla</SubTitle>
+              <SubTitle>{userName}, {role}</SubTitle>
             </Animated.Text>
           </PageTitleContainer>
 

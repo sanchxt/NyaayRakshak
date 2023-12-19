@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
+import { apiBaseUrl } from "../apiConfig"; 
 
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 
@@ -31,7 +32,7 @@ import {
   TextLink,
   TextLinkContent,
 } from "./../components/styles";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 
@@ -42,6 +43,7 @@ const SignupScreen = () => {
   const navigation = useNavigation();
 
   const [hidePassword, setHidePassword] = useState(true);
+  const [role, setRole] = useState('prisoner');
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(2000, 0, 1));
 
@@ -66,12 +68,12 @@ const SignupScreen = () => {
         return;
       }
 
-      const response = await axios.post("http://localhost:5555/signup", {
+      const response = await axios.post(`${apiBaseUrl}/signup`, {
         name: values.fullName,
         email: values.email,
         dateOfBirth: dob,
         password: values.password,
-        role: "prisoner", // or "lawyer" based on your logic
+        role: role, // or "lawyer" based on your logic
         // Additional fields can be added here if needed
       });
 
@@ -79,16 +81,75 @@ const SignupScreen = () => {
         console.log("Registration successful");
         navigation.navigate("Welcome");
       } else {
+        // Handle specific registration errors
         console.log("Registration failed:", response.data.message);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      if (error.response) {
+        // The request was made, but the server responded with a status code
+        // other than 2xx. Check the status code and handle accordingly.
+        if (error.response.status === 409) {
+          console.log("User already registered.");
+        } else {
+          console.error("Server error:", error.response.data.message);
+        }
+      } else if (error.request) {
+        // The request was made, but no response was received
+        console.error("No response received from the server.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error setting up the request:", error.message);
+      }
     } finally {
       setSubmitting(false);
     }
   };
 
-  return (
+  const RadioButton = ({ options, value, setValue }) => {
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        {options.map((option) => (
+          <TouchableOpacity
+            key={option.key}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginRight: 10,
+            }}
+            onPress={() => setValue(option.value)}
+          >
+            <View
+              style={{
+                height: 20,
+                width: 20,
+                borderRadius: 10,
+                borderWidth: 2,
+                borderColor: '#E2E2E2',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {value === option.value && (
+                <View
+                  style={{
+                    height: 10,
+                    width: 10,
+                    borderRadius: 5,
+                    backgroundColor: brand,
+                  }}
+                />
+              )}
+            </View>
+            <Text style={{ marginLeft: 5 }}>{option.label}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  };
+  
+
+
+  return ( 
     <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="dark" />
@@ -188,6 +249,17 @@ const SignupScreen = () => {
                     setHidePassword={setHidePassword}
                   />
 
+                  <BreakPaddingTop />
+                  <RadioButton
+                    options={[
+                      { label: 'Lawyer', value: 'lawyer', key: 'lawyer' },
+                      { label: 'Prisoner', value: 'prisoner', key: 'prisoner' }
+                    ]}
+                    value={role}
+                    setValue={setRole}
+                  />
+
+                  <BreakPaddingTop />
                   <BreakPaddingTop />
                   <StyledButton onPress={handleSubmit}>
                     <ButtonText>Sign Up</ButtonText>
