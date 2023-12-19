@@ -23,7 +23,7 @@ import NotificationScreen from "./screens/NotificationScreen";
 import LegalAdvisorScreen from "./screens/LegalAdvisorScreen";
 
 import RateAppDrawer from "./screens/drawers/RateAppDrawer";
-import CategoriesDrawer from "./screens/drawers/CategoriesDrawer";
+import SubmitCaseDrawer from "./screens/drawers/SubmitCaseDrawer";
 import CustomizeDrawer from "./screens/drawers/CustomizeDrawer";
 import SettingsDrawer from "./screens/drawers/SettingsDrawer";
 import GetPremiumDrawer from "./screens/drawers/GetPremiumDrawer";
@@ -104,9 +104,9 @@ const HomeNavigator = () => (
     />
     <Drawer.Screen
       name="CategoriesDrawer"
-      component={CategoriesDrawer}
+      component={SubmitCaseDrawer}
       options={{
-        drawerLabel: "Categories",
+        drawerLabel: "Submit a New Case",
         title: "Categories",
         drawerIcon: () => (
           <MaterialIcons name="category" size={20} color="#808080" />
@@ -193,53 +193,3 @@ const StackNavigator = () => {
 };
 
 export default StackNavigator;
-
-// OLD - SAVED FOR LATER REFERENCE:
-
-//<Stack.Navigator
-// screenOptions={{
-//   headerStyled: {
-//     backgroundColor: "transparent",
-//   },
-//   headerTintColor: tertiary,
-//   headerTransparent: true,
-//   headerTitle: "",
-//   headerLeftContainerStyle: {
-//     paddingLeft: 20,
-//   },
-// }}
-
-// import React from "react";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import HomeScreen from "./screens/HomeScreen";
-// import ChatScreen from "./screens/ChatScreen";
-// import LoginScreen from "./screens/LoginScreen";
-// import SignupScreen from "./screens/SignupScreen";
-// import WelcomeScreen from "./screens/WelcomeScreen";
-// import useAuth from "./hooks/useAuth";
-
-// const Stack = createNativeStackNavigator();
-
-// const StackNavigator = () => {
-//   const { user } = useAuth();
-//   return (
-//     <Stack.Navigator screenOptions={{ headerShown: false }}>
-//       {user ? (
-//         <>
-//           <Stack.Screen name="Home" component={HomeScreen} />
-//           <Stack.Screen name="Chat" component={ChatScreen} />
-//         </>
-//       ) : (
-//         <>
-//           <Stack.Screen name="Login" component={LoginScreen} />
-//           <Stack.Screen name="Signup" component={SignupScreen} />
-//           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-//           <Stack.Screen name="Home" component={HomeScreen} />
-//           <Stack.Screen name="Chat" component={ChatScreen} />
-//         </>
-//       )}
-//     </Stack.Navigator>
-//   );
-// };
-
-// export default StackNavigator;
