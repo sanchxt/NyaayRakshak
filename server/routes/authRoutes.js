@@ -45,14 +45,12 @@ router.post("/signup", async (req, res) => {
   try {
     const { name, email, dateOfBirth, password, role } = req.body;
 
-    // Check if the required fields are provided
     if (!name || !email || !dateOfBirth || !password || !role) {
       return res
         .status(400)
         .json({ success: false, message: "Incomplete data" });
     }
 
-    // Check if the user already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -76,10 +74,49 @@ router.post("/signup", async (req, res) => {
     return res.json({ success: true, message: "Signup successful" });
   } catch (error) {
     console.error("Error during signup:", error);
+
+    // Adjust the error response based on the specific error conditions
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+
     return res
       .status(500)
       .json({ success: false, message: "Internal server error" });
   }
 });
+
+router.post('/getrole', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const existingUser = await User.findOne({ email });
+    console.log(existingUser);
+    return res.status(200).send({ success: true, message: existingUser.role });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+router.get("/getname", async (req, res) => {
+  try {
+    const userEmail = req.query.email;
+
+    if (!userEmail) {
+      return res.status(400).send({ message: "Email is required" });
+    }
+
+    const user = await User.findOne({ email: userEmail }).select('name');
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    return res.status(200).json({ name: user.name });
+  } catch (error) {
+    console.error("Error during fetching user details:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 
 export default router;
